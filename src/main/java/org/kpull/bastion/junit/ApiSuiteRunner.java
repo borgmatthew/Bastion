@@ -51,18 +51,22 @@ public class ApiSuiteRunner extends ParentRunner<ApiSuite> {
         ApiEnvironment environment = child.getEnvironment();
         List<ApiCall> apiCalls = child.getApiCalls();
         apiCalls.forEach(apiCall -> {
-            Description apiCallDescription = describeApiCall(child.getName(), apiCall);
-            notifier.fireTestStarted(apiCallDescription);
-            try {
-                ApiCallExecutor executor = new ApiCallExecutor(environment, apiCall, new ObjectMapper());
-                executor.execute();
-            } catch (AssumptionViolatedException e) {
-                notifier.fireTestAssumptionFailed(new Failure(apiCallDescription, e));
-            } catch (Throwable e) {
-                notifier.fireTestFailure(new Failure(apiCallDescription, e));
-            } finally {
-                notifier.fireTestFinished(apiCallDescription);
-            }
+            executeApiCall(child, notifier, environment, apiCall);
         });
+    }
+
+    private void executeApiCall(ApiSuite child, RunNotifier notifier, ApiEnvironment environment, ApiCall apiCall) {
+        Description apiCallDescription = describeApiCall(child.getName(), apiCall);
+        notifier.fireTestStarted(apiCallDescription);
+        try {
+            ApiCallExecutor executor = new ApiCallExecutor(environment, apiCall, new ObjectMapper());
+            executor.execute();
+        } catch (AssumptionViolatedException e) {
+            notifier.fireTestAssumptionFailed(new Failure(apiCallDescription, e));
+        } catch (Throwable e) {
+            notifier.fireTestFailure(new Failure(apiCallDescription, e));
+        } finally {
+            notifier.fireTestFinished(apiCallDescription);
+        }
     }
 }
