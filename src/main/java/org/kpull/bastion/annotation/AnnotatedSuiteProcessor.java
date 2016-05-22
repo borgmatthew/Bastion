@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -33,9 +34,11 @@ public class AnnotatedSuiteProcessor {
             if (bastionSuiteInfo == null) {
                 throw new IllegalArgumentException(format("The specified class [%s] should have the BastionSuite annotation", suiteClass.getName()));
             }
-            String suiteName = StringUtils.defaultIfBlank(bastionSuiteInfo.name(), suiteClass.getSimpleName());
-            ApiEnvironment environment = new ApiEnvironment(Arrays.stream(bastionSuiteInfo.environment()).collect(Collectors.toMap(Variable::name, Variable::value)));
             Object suiteInstance = suiteClass.newInstance();
+            String suiteName = StringUtils.defaultIfBlank(bastionSuiteInfo.name(), suiteClass.getSimpleName());
+            ApiEnvironment environment = new ApiEnvironment(Arrays.stream(bastionSuiteInfo.environment()).collect(Collectors.toMap(EnvVar::name, EnvVar::value)));
+            Map<String, String> extraEnvironment = getAdditionalEnvironmentFromMethods(suiteInstance);
+            environment.putAll(extraEnvironment);
             List<ApiCall> calls = Arrays.stream(suiteClass.getMethods()).filter(method -> method.isAnnotationPresent(Request.class))
                     .map(method -> {
                         Request requestInfo = method.getAnnotation(Request.class);
@@ -64,6 +67,16 @@ public class AnnotatedSuiteProcessor {
         } catch (IllegalAccessException e) {
             throw new IllegalArgumentException("Error creating an instance of a Bastion suite.", e);
         }
+    }
+
+    private Map<String, String> getAdditionalEnvironmentFromMethods(Object suiteInstance) {
+        return Arrays.stream(suiteClass.getMethods()).filter(method -> method.isAnnotationPresent(EnvVar.class)).collect(Collectors.toMap(method -> StringUtils.defaultIfBlank(method.getAnnotation(EnvVar.class).name(), method.getName()), method -> {
+            try {
+                return (String) method.invoke(suiteInstance);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                throw new IllegalStateException("Error invoking Bastion suite method", e);
+            }
+        }));
     }
 
     private String evaluateBodyFromMethodReturnValue(Object suiteInstance, Method method) {

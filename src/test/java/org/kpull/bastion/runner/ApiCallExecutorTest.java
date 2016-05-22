@@ -69,8 +69,6 @@ public class ApiCallExecutorTest {
         ApiCall apiCallToExecute = apiSuite.getApiCalls().get(0);
         ApiCallExecutor executor = new ApiCallExecutor(apiSuite.getEnvironment(), apiCallToExecute, new ObjectMapper());
         executor.execute();
-        assertThat(apiCallToExecute.getResponse().getStatusCode()).isEqualTo(HttpStatus.SC_OK);
-        assertThat(apiCallToExecute.getResponse().getBody()).isNotEmpty();
         assertThat(apiSuite.getEnvironment()).contains(entry("lat", "51.51"));
     }
 
@@ -91,7 +89,6 @@ public class ApiCallExecutorTest {
                     .end()
                 .toString());
                 // @formatter:on
-        assertThat(apiCallToExecute.getResponse().getStatusCode()).isEqualTo(HttpStatus.SC_OK);
     }
 
 }

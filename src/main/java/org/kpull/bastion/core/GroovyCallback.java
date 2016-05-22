@@ -27,7 +27,6 @@ public class GroovyCallback implements Callback {
             binding.setVariable("apiCall", context.getCall());
             binding.setVariable("apiRequest", context.getRequest());
             binding.setVariable("httpRequest", context.getHttpRequest());
-            binding.setVariable("apiResponse", context.getCall().getResponse());
             binding.setVariable("httpResponse", context.getHttpResponse());
             binding.setVariable("jsonResponseBody", context.getJsonResponseBody());
             binding.setVariable("model", context.getResponseModel());

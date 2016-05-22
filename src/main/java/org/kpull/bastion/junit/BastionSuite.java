@@ -1,6 +1,6 @@
 package org.kpull.bastion.junit;
 
-import org.kpull.bastion.annotation.Variable;
+import org.kpull.bastion.annotation.EnvVar;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,6 +16,6 @@ public @interface BastionSuite {
 
     String name() default "";
 
-    Variable[] environment() default {};
+    EnvVar[] environment() default {};
 
 }

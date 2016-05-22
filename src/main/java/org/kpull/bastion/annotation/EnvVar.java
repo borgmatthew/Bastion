@@ -7,10 +7,10 @@ import java.lang.annotation.RetentionPolicy;
  * @author <a href="mailto:mail@kylepullicino.com">Kyle</a>
  */
 @Retention(RetentionPolicy.RUNTIME)
-public @interface QueryParam {
+public @interface EnvVar {
 
-    String name();
+    String name() default "";
 
-    String value();
+    String value() default "";
 
 }
