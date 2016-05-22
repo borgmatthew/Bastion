@@ -126,7 +126,6 @@ public class ApiCallExecutor {
         String contentType = httpResponse.getHeaders().getFirst("content-type");
         ApiResponse response = new ApiResponse(httpResponse.getHeaders().entrySet().stream().flatMap(header -> header.getValue().stream().map(value -> new ApiHeader(header.getKey(), value))).collect(Collectors.toList()),
                 httpResponse.getStatus(), contentType, httpResponse.getBody().toString());
-        apiCallToExecute.setResponse(response);
         context.setResponse(response);
         return response;
     }

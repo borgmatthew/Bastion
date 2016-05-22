@@ -1,6 +1,5 @@
 package org.kpull.bastion.annotation;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import org.apache.commons.lang.StringUtils;
 import org.kpull.bastion.core.*;
@@ -57,7 +56,7 @@ public class AnnotatedSuiteProcessor {
                         String body = null;
                         body = evaluateBodyFromMethodReturnValue(suiteInstance, method);
                         ApiRequest apiRequest = new ApiRequest(requestInfo.method(), requestInfo.url(), headers, requestInfo.type(), body, queryParams);
-                        return new ApiCall(callName, description, apiRequest, new ApiResponse(Lists.newLinkedList(), 0, "", ""), null, null, Callback.NO_OPERATION_CALLBACK);
+                        return new ApiCall(callName, description, apiRequest, null, null, Callback.NO_OPERATION_CALLBACK);
                     }).collect(Collectors.toList());
             return new ApiSuite(suiteName, environment, calls);
         } catch (InstantiationException e) {

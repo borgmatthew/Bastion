@@ -11,16 +11,14 @@ public class ApiCall {
     private String name;
     private String description;
     private ApiRequest request;
-    private ApiResponse response;
     private Class<?> responseModel;
     private Assertions<?> assertions;
     private Callback postCallExecution;
 
-    public ApiCall(String name, String description, ApiRequest request, ApiResponse response, Class<?> responseModel, Assertions<?> assertions, Callback callback) {
+    public ApiCall(String name, String description, ApiRequest request, Class<?> responseModel, Assertions<?> assertions, Callback callback) {
         setName(name);
         setDescription(description);
         setRequest(request);
-        setResponse(response);
         setResponseModel(responseModel);
         setAssertions(assertions);
         setPostCallExecution(callback);
@@ -51,15 +49,6 @@ public class ApiCall {
     public void setRequest(ApiRequest request) {
         Objects.requireNonNull(request);
         this.request = request;
-    }
-
-    public ApiResponse getResponse() {
-        return response;
-    }
-
-    public void setResponse(ApiResponse response) {
-        Objects.requireNonNull(response);
-        this.response = response;
     }
 
     public Optional<Assertions<Object>> getAssertions() {

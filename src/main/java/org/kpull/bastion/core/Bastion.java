@@ -98,12 +98,8 @@ public class Bastion {
             return new ApiRequestBuilder(method, url);
         }
 
-        public ApiResponseBuilder response() {
-            return new ApiResponseBuilder();
-        }
-
         public Bastion done() {
-            apiCalls.add(new ApiCall(name, description, request, response, responseModel, assertions, postCallExecution));
+            apiCalls.add(new ApiCall(name, description, request, responseModel, assertions, postCallExecution));
             return Bastion.this;
         }
 
@@ -220,44 +216,5 @@ public class Bastion {
             }
         }
 
-        public class ApiResponseBuilder {
-            private List<ApiHeader> headers = new LinkedList<>();
-            private int statusCode = 0;
-            private String type = "";
-            private String body = "";
-
-            private ApiResponseBuilder() {
-            }
-
-            public ApiResponseBuilder statusCode(int statusCode) {
-                Objects.requireNonNull(statusCode);
-                this.statusCode = statusCode;
-                return this;
-            }
-
-            public ApiResponseBuilder type(String type) {
-                Objects.requireNonNull(type);
-                this.type = type;
-                return this;
-            }
-
-            public ApiResponseBuilder body(String body) {
-                Objects.requireNonNull(body);
-                this.body = body;
-                return this;
-            }
-
-            public ApiResponseBuilder header(String name, String value) {
-                Objects.requireNonNull(name);
-                Objects.requireNonNull(value);
-                headers.add(new ApiHeader(name, value));
-                return this;
-            }
-
-            public ApiCallBuilder done() {
-                response = new ApiResponse(headers, 0, type, body);
-                return ApiCallBuilder.this;
-            }
-        }
     }
 }
