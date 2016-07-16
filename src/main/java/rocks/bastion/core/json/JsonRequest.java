@@ -4,10 +4,10 @@ import com.google.common.io.Files;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import org.apache.http.entity.ContentType;
+import rocks.bastion.core.AbstractRequest;
 import rocks.bastion.core.ApiHeader;
 import rocks.bastion.core.ApiQueryParam;
 import rocks.bastion.core.HttpMethod;
-import rocks.bastion.core.Request;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,30 +23,17 @@ import static java.lang.String.format;
  * classpath. Automatically sets the correct content type to use. This request will verify that the provided JSON body
  * contains valid JSON.
  */
-public class JsonRequest implements Request {
-
-    private String name;
-    private String url;
-    private HttpMethod method;
-    private ContentType contentType;
-    private Collection<ApiHeader> headers;
-    private Collection<ApiQueryParam> queryParams;
-    private String body;
+public class JsonRequest extends AbstractRequest {
 
     private JsonRequest(HttpMethod method, String url, String json) throws InvalidJsonException {
-        Objects.requireNonNull(method);
-        Objects.requireNonNull(url);
-        Objects.requireNonNull(json);
+        super(method, url, json);
 
-        this.method = method;
-        this.url = url;
         this.name = method.getValue() + " " + url;
         this.contentType = ContentType.APPLICATION_JSON;
         this.headers = new LinkedList<>();
         this.queryParams = new LinkedList<>();
-        this.body = json;
 
-        validateJson();
+        validateJsonBody();
     }
 
     /**
@@ -140,7 +127,7 @@ public class JsonRequest implements Request {
         return fromFile(HttpMethod.PUT, url, jsonFile);
     }
 
-    private void validateJson() throws InvalidJsonException {
+    private void validateJsonBody() throws InvalidJsonException {
         try {
             new JsonParser().parse(body);
         } catch (JsonParseException parseException) {
