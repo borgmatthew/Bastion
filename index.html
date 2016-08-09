@@ -36,13 +36,15 @@
 
 <p>Bastion is a library that eases the development of end-to-end tests for HTTP APIs. A typical user would write tests using Bastion based off of some sort of API specification. This API specification can be anything like a WADL file, RAML file or a JSON schema. A test engineer would prepare requests and responses based on these specifications to test the overall process of calling these APIs.</p>
 
-<p>Bastion also contains tools that will help developers fix problems that occur as fast as possible. The JUnit 4 test runner, BastionRunner, for example, allows each individual HTTP request to appear in any test reports or UIs. This is extremely useful as a developer will more easily understand which API or HTTP request failed when testing multi-step processes. </p>
+<p>Bastion also contains tools that will help developers fix problems that occur as fast as possible. The JUnit 4 test runner, BastionRunner, for example, allows each individual HTTP request to appear in any test reports or UIs. This is extremely useful as a developer will more easily understand which API or HTTP request failed when testing multi-step processes.</p>
+
+<p>More detailed documentation for Bastion is available in the <a href="http://bastion.rocks/apidocs/0.1-BETA/index.html?rocks/bastion/Bastion.html">Bastion JavaDocs</a>.</p>
 
 <h1>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h1>
 
 <h2>
-<a id="depedency" class="anchor" href="#depedency" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Depedency</h2>
+<a id="dependency" class="anchor" href="#dependency" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependency</h2>
 
 <p>Use a dependency management tool such as Maven to download the Bastion library for use in your project. Add the following
 dependency to your POM file:</p>
@@ -50,7 +52,7 @@ dependency to your POM file:</p>
 <div class="highlight highlight-text-xml"><pre>    &lt;<span class="pl-ent">dependency</span>&gt;
         &lt;<span class="pl-ent">groupId</span>&gt;rocks.bastion&lt;/<span class="pl-ent">groupId</span>&gt;
         &lt;<span class="pl-ent">artifactId</span>&gt;bastion&lt;/<span class="pl-ent">artifactId</span>&gt;
-        &lt;<span class="pl-ent">version</span>&gt;0.1-SNAPSHOT&lt;/<span class="pl-ent">version</span>&gt;
+        &lt;<span class="pl-ent">version</span>&gt;0.1-BETA&lt;/<span class="pl-ent">version</span>&gt;
         &lt;<span class="pl-ent">scope</span>&gt;test&lt;/<span class="pl-ent">scope</span>&gt;
     &lt;<span class="pl-ent">dependency</span>&gt;</pre></div>
 
