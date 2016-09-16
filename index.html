@@ -52,7 +52,7 @@ dependency to your POM file:</p>
 <div class="highlight highlight-text-xml"><pre>    &lt;<span class="pl-ent">dependency</span>&gt;
         &lt;<span class="pl-ent">groupId</span>&gt;rocks.bastion&lt;/<span class="pl-ent">groupId</span>&gt;
         &lt;<span class="pl-ent">artifactId</span>&gt;bastion&lt;/<span class="pl-ent">artifactId</span>&gt;
-        &lt;<span class="pl-ent">version</span>&gt;0.1-BETA&lt;/<span class="pl-ent">version</span>&gt;
+        &lt;<span class="pl-ent">version</span>&gt;0.2.1-BETA&lt;/<span class="pl-ent">version</span>&gt;
         &lt;<span class="pl-ent">scope</span>&gt;test&lt;/<span class="pl-ent">scope</span>&gt;
     &lt;<span class="pl-ent">dependency</span>&gt;</pre></div>
 
@@ -61,7 +61,7 @@ dependency to your POM file:</p>
 
 <p>The following is a simple test for a remote Sushi ordering service API (imports omitted):</p>
 
-<div class="highlight highlight-source-java"><pre>@RunWith(<span class="pl-smi">BastionRunner</span><span class="pl-k">.</span>class)
+<div class="highlight highlight-source-java"><pre><span class="pl-k">@RunWith</span>(<span class="pl-smi">BastionRunner</span><span class="pl-k">.</span>class)
 <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">CreateSushiTest</span> <span class="pl-k">extends</span> <span class="pl-e">TestWithEmbeddedServer</span> {
     <span class="pl-k">@Test</span>
     <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">testCreateSushi_Success</span>() {
